@@ -6,3 +6,4 @@ def calc(s):
 
 print(calc("1"))
 print(calc("1+2"))
+print(calc("1+2+3"))
