@@ -33,7 +33,9 @@ class Q(object):
         d = q.b
         return Q(a*d,b*c)
 
-q1 = Q(1,2)
+q1 =  Q(1,2)
+q1.a => 1
+q1.b => 2
 q2 = Q(1,3)
 print(q1 + q2) #==> 5/6
 print(q1 - q2) #==> 1/6
