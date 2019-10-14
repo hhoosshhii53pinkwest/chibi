@@ -38,6 +38,7 @@ class Mul(object):
     def eval(self):
         return self.left.eval() * self.right.eval()
 
+        
 e = Mul(Val(1), Val(2)) #1*2
 print(e.eval())
 assert e.eval() == 2
