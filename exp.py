@@ -1,6 +1,6 @@
 class Expr(object):
     pass
-class Val(object):
+class Val(Expr):
     __slots__ = ['value']
     def __init__(self,value= 0):
         self.value = value
@@ -28,8 +28,7 @@ e = Add(Val(1), Val(2)) #1+2
 print(e.eval())
 assert e.eval() == 3
 
-e = Add(1,2)
-assert e.eval() == 3
+
 
 
 e = Add(Val(1),Add(Val(2),Val(3))) #1+2+3 ==> 6
@@ -41,7 +40,7 @@ print()
 class Mul(object):
     __slots__=['left','right']
     def __init__(self, a, b):
-        self.left = a
+        self.left = a #aとbは式
         self.right = b
     def eval(self):
         return self.left.eval() * self.right.eval()
