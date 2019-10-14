@@ -25,9 +25,8 @@ print(e.eval())
 assert e.eval() == 3
 
 e = Add(Val(1),Add(Val(2),Val(3))) #1+2+3 ==> 6
+print(e.eval())
 assert e.eval() == 6
 
+print()
 
-print()
-print()
-print()
