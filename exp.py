@@ -30,8 +30,8 @@ class Add(Expr):
             a = Val(a)
         if not isinstance(b, Expr):
             b = Val(b)   
-        self.left = a
-        self.right = b
+        self.left = toExpr(a)
+        self.right = toExpr(b)
     def eval(self):
         return self.left.eval() + self.right.eval()
 
@@ -44,48 +44,4 @@ assert e.eval() == 6
 
 print()
 
-class Mul(Expr):
-    __slots__=['left','right']
-    def __init__(self, a, b):
-        self.left = a #aとbは式
-        self.right = b
-    def eval(self):
-        return self.left.eval() * self.right.eval()
-
-
-e = Mul(Val(1), Val(2)) #1*2
-print(e.eval())
-assert e.eval() == 2
-
-print()
-
-class Sub(Expr):
-    __slots__=['left','right']
-    def __init__(self, a, b):
-        self.left = a
-        self.right = b
-    def eval(self):
-        return self.left.eval() - self.right.eval()
-
-        
-e = Sub(Val(1), Val(2)) #1*2
-print(e.eval())
-assert e.eval() == -1
-
-print()
-
-class Div(Expr):
-    __slots__=['left','right']
-    def __init__(self, a, b):
-        self.left = a
-        self.right = b
-    def eval(self):
-        return self.left.eval() // self.right.eval()
-
-        
-e = Div(Val(7), Val(2)) #1*2
-print(e.eval())
-assert e.eval() == 3
-
-print()
 
