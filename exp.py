@@ -1,7 +1,4 @@
 
-
-
-
 class Val(object):
     __slots__ = ['value']
     def __init__(self,value= 0):
@@ -14,3 +11,19 @@ class Val(object):
 v = Val(1)
 print(v)
 assert v.eval() == 1
+
+class Add(object):
+    __slots__=['left','right']
+    def __init__(self, a, b):
+        self.left = a
+        self.right = b
+    def eval(self):
+        return self.left + self.right
+
+e = Add(1, 2)
+assert e.eval() == 3
+
+#次のステップ　1+2+3 ==> 6
+
+e = Add(1,Add(2,3))
+print(e.eval())
