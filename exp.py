@@ -15,25 +15,31 @@ assert v.eval() == 1
 
 assert isinstance(v, Expr) #==>True
 assert isinstance(v, Val) #==>True
-assert isinstance(v, int) #==>False
+assert not isinstance(v, int) 
+
+def toExpr(a):
+    if not isinstance(a, Expr):
+        a = Val(a)
+    return a
+
+
 class Add(Expr):
     __slots__=['left','right']
     def __init__(self, a, b):
+        if not isinstance(a, Expr):
+            a = Val(a)
+        if not isinstance(b, Expr):
+            b = Val(b)   
         self.left = a
         self.right = b
     def eval(self):
         return self.left.eval() + self.right.eval()
 
-    e = Add(Val(1), Val(2)) #1+2
+    e = Add(1,Add(1,2))
     print(e.eval())
-    assert e.eval() == 3
-
-e = Add(1,2)
-assert e.eval() == 3
-
+    assert e.eval() == 4
 
 e = Add(Val(1),Add(Val(2),Val(3))) #1+2+3 ==> 6
-print(e.eval())
 assert e.eval() == 6
 
 print()
