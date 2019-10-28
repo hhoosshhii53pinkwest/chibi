@@ -18,7 +18,7 @@ def toExpr(a):
     if not isinstance(a, Expr):
             a = Val(a)
     return a
-
+    
 class Binary(Expr):
     def __repr__(self):
         cname = self.__class__.__name__
