@@ -1,4 +1,4 @@
-from exp import Val, Add
+from exp import Val, Add, Sub, Mul, Div
 
 def parse(s: str):
     num = int(s)
@@ -7,7 +7,7 @@ def parse(s: str):
 e = parse("123")
 print(e)
 
-s = "1+2"
+s = "123+456"
 pos = s.find('+') #+記号を探す
 print('pos' , pos)
 
