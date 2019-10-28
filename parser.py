@@ -21,9 +21,9 @@ def parse(s: str):
         num = int(s)
         return Val(num)
     else:
-            s1 = s[0:pos]
-            s2 = s[pos+1:]
-            return Add(Val(int(s1)),Val(int(s2)))
+        s1 = s[0:pos]
+        s2 = s[pos+1:]
+        return Add(parse(s1), parse(s2))
 
-e = parse("123+456")
+e = parse("123+456+789+999")
 print(e)
