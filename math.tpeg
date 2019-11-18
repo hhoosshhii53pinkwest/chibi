@@ -1,9 +1,9 @@
 
-example Expr 1
-example Expr 1+2
-example Expr 1+2+3
 
-Expr = {Value '+' Expr #Add}
+example Expr 1+2*3
+
+Expr = { Value '+' Expr #Add }
+     / { Value '*' Expr #Mul }
      / Value
 
 Value = { DIGIT+ #Int }
