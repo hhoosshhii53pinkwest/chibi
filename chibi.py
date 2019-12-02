@@ -63,10 +63,16 @@ class Var(Expr):
         raise NameError(self.name)
 
 class Assign(Expr):
-    __slots__ = []
+    __slots__ = ['name','e']
+    def __init__(self,name,e):
+        self.name = name
+        self.e = Expr.new(e)
+
+    def eval(self,env):
+        env[self.name] = self.e.eval(env)
+        return env[self.name]
+
     
-
-
 print('少しテスト')
 
 env = {}
@@ -75,8 +81,7 @@ print(e.eval(env)) #1
 e = Assign('x',Add(Var('x'),Val(2))) #x = x + 2
 print(e.eval(env)) #3
 
-
-promt('テスト終わり')
+print('テスト終わり')
 
 def conv(tree):
     if tree == 'Block':
