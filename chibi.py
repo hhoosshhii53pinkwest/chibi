@@ -2,12 +2,7 @@ import pegpy
 #from pegpy.tpeg import ParseTree
 peg = pegpy.grammar('chibi.tpeg')
 parser = pegpy.generate(peg)
-'''
-tree = parser('1+2*3')
-print(repr(tree))
-tree = parser('1@2*3')
-print(repr(tree))
-'''
+
 class Expr(object):
     @classmethod
     def new(cls, v):
@@ -90,20 +85,28 @@ class Assign(Expr):
         self.name = name
         self.e = Expr.new(e)
 
+    def eval(self,env):
+        env[self.name] = self.e.eval(env)
+        return env[self.name]
+
 
 class Block(Expr):
-     __slots__ = ['exprs']
-    def __init__(self,*exprs):
-        self.exprs = exprs
+    __slots__ = ['exprs']
+    def __init__(self, *exprs): 
+        self.exprs = exprs # [e1,e2,e3,e4,e5]リストになっている
     def eval(self,env):
-        pass
+        for e in self.exprs:
+            e.eval(env)
+
 class While(Expr):
     __slots__ = ['cond','body']
     def __init__(self,cond,body):
         self.cond = cond
         self.body = body
     def eval(self,env):
-        pass
+        while self.cond.eval(env) != 0:
+            self.body.eval(env)
+
 
 class If(Expr):
     __slots__ = ['cond','then','else_']
@@ -118,12 +121,21 @@ class If(Expr):
         else:
             return self.else_.eval(env)
 
+e = Block(
+    Assign('x',Val(1)),
+    Assign('y',Val(2)),
+    If(Gt(Var('x'),Var('y')),Var('x'),('y'))
+)
+assert e.eval({}) == 2
+
   
 def conv(tree):
     if tree == 'Block':
         return conv(tree[0])
     if tree == 'If':
         return If(conv(tree[0]),conv(tree[1]),conv(tree[2]))
+    if tree == 'While':
+        return While(conv(tree[0]), conv(tree[1]))     
     if tree == 'Val' or tree == 'Int':
         return Val(int(str(tree)))
     if tree == 'Add':
