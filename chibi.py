@@ -67,6 +67,21 @@ class Lt(Binary):
     __slots__ = ['left', 'right']
     def eval(self, env: dict): # cond ? x : y
         return 1 if self.left.eval(env) < self.right.eval(env) else 0
+
+class Lte(Binary):
+    __slots__ = ['left', 'right']
+    def eval(self, env: dict): # cond ? x : y
+        return 1 if self.left.eval(env) <= self.right.eval(env) else 0
+
+class Gt(Binary):
+    __slots__ = ['left', 'right']
+    def eval(self, env: dict): # cond ? x : y
+        return 1 if self.left.eval(env) > self.right.eval(env) else 0
+
+class Eq(Binary):
+    __slots__ = ['left', 'right']
+    def eval(self, env: dict): # cond ? x : y
+        return 1 if self.left.eval(env) >= self.right.eval(env) else 0
     
 class Var(Expr):
     __slots__ = ['name']
@@ -100,6 +115,12 @@ def conv(tree):
     if tree == 'Mod':
         return Mod(conv(tree[0]), conv(tree[1]))
     if tree =='Lt':
+        return Lt(conv(tree[0]), conv(tree[1]))
+    if tree =='Lte':
+        return Lt(conv(tree[0]), conv(tree[1]))
+    if tree =='Gt':
+        return Lt(conv(tree[0]), conv(tree[1]))
+    if tree =='Gte':
         return Lt(conv(tree[0]), conv(tree[1]))
     if tree == 'Var':
         return Var(str(tree))
