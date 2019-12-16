@@ -155,6 +155,7 @@ def conv(tree):
         return Assign(str(tree[0]), Lambda(str(tree[1]), conv(tree[2])))
     if tree == 'FuncApp':   # この２行を追加します
         return FuncApp(conv(tree[0]), conv(tree[1]))
+
     if tree == 'While':
         return While(conv(tree[0]), conv(tree[1]))
     if tree == 'Val' or tree == 'Int':
